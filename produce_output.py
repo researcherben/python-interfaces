@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+this file can be used to
+ * create a file of edges on disk
+   https://networkx.org/documentation/stable//reference/readwrite/json_graph.html
+ * write list of edge tuples to stdout
+ * provide the edge list of a graph using a generator
+ * provide the graph as a data structure using a function call
+See associated README.md for examples
+
+this file is also intended as an examplar for how to use
+* logging
+* argparse
+"""
 import random   # for graph construction; https://docs.python.org/3/library/random.html
 import logging  # https://docs.python.org/3/library/logging.html
                 # https://realpython.com/python-logging-source-code/
@@ -19,19 +32,6 @@ import json
 # docstrings should conform to
 # https://google.github.io/styleguide/pyguide.html
 
-"""
-this file can be used to
- * create a file of edges on disk
-   https://networkx.org/documentation/stable//reference/readwrite/json_graph.html
- * write list of edge tuples to stdout
- * provide the edge list of a graph using a generator
- * provide the graph as a data structure using a function call
-See associated README.md for examples
-
-this file is also intended as an examplar for how to use
-* logging
-* argparse
-"""
 
 
 # ************ Begin logging configuration ******************
@@ -209,7 +209,7 @@ def create_ring_graph(number_of_nodes: int) -> dict:
     """
     logger.info("[trace]")
 
-    return dict(zip(range(10), [(x+1)%10 for x in range(10)]))
+    return dict(zip(range(number_of_nodes), [(x+1)%number_of_nodes for x in range(number_of_nodes)]))
 
 
 # ********** end primary functions *****************

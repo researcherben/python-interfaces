@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+validate
+"""
 import json
 import argparse # https://docs.python.org/3.3/library/argparse.html
                 # https://realpython.com/command-line-interfaces-python-argparse/
@@ -8,6 +11,7 @@ import json_schema
 
 def validate_json(dict_to_validate:dict, schema_to_compare:dict) -> bool:
     """
+    a function
     """
     validate(instance=dat,schema=json_schema.schema)
     return True

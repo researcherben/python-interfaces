@@ -1,13 +1,4 @@
 #!/usr/bin/env python3
-import sys
-import json
-import networkx as nx # https://networkx.org/documentation/stable//reference/introduction.html
-import matplotlib.pyplot as plt
-import argparse # https://docs.python.org/3.3/library/argparse.html
-                # https://realpython.com/command-line-interfaces-python-argparse/
-
-import produce_output
-import validate_json_schema
 """
 either
 * read edge tuples from stdin
@@ -28,6 +19,17 @@ what about a graph can be checked?
 visualization of graph using graphviz
 * what if the graph is big? sampling
 """
+import sys
+import json
+import networkx as nx # https://networkx.org/documentation/stable//reference/introduction.html
+import matplotlib.pyplot as plt
+import argparse # https://docs.python.org/3.3/library/argparse.html
+                # https://realpython.com/command-line-interfaces-python-argparse/
+
+import produce_output
+import validate_json_schema
+
+
 if __name__ == "__main__":
 
     theparser = argparse.ArgumentParser(description='validate graph', allow_abbrev=False)

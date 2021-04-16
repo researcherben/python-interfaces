@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Solve
+"""
 import logging  # https://docs.python.org/3/library/logging.html
                 # https://realpython.com/python-logging-source-code/
 import argparse # https://docs.python.org/3.3/library/argparse.html
@@ -17,8 +20,6 @@ import os
 # docstrings should conform to
 # https://google.github.io/styleguide/pyguide.html
 
-"""
-"""
 
 
 # ************ Begin logging configuration ******************
@@ -152,5 +153,4 @@ if __name__ == "__main__":
     if args.N<0:
         raise Exception("invalid number of nodes")
 
-    # given L and W and Q and D, determine 
-
+    # given L and W and Q and D, determine
