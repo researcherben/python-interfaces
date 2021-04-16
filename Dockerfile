@@ -11,7 +11,9 @@ CMD ["/sbin/my_init"]
 RUN apt update && apt -y upgrade && apt -y install \
     build-essential \
     doxygen \
-    python3
+    python3 \
+    # doxygen uses "dot" to make graphs
+    graphviz
 
 WORKDIR /opt/
 
@@ -22,3 +24,6 @@ COPY json_schema.py \
      validate_json_schema.py \
      /opt/
 
+# https://www.doxygen.nl/manual/starting.html
+RUN doxygen -g
+RUN doxygen Doxyfile
