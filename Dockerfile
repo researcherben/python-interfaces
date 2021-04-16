@@ -9,11 +9,15 @@ CMD ["/sbin/my_init"]
 
 # Update and install packages
 RUN apt update && apt -y upgrade && apt -y install \
-    build-essential \
     doxygen \
     python3 \
     # doxygen uses "dot" to make graphs
-    graphviz
+    graphviz \ 
+    # doxygen PDF requires latex
+    texlive-latex-base \
+    texlive-latex-recommended texlive-pictures texlive-latex-extra \
+    # doxygen latex requires make
+    make 
 
 WORKDIR /opt/
 
