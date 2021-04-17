@@ -9,6 +9,8 @@ help:
 	@echo "make doctest"
 	@echo "make mypy"
 
+create_and_test: create_readme
+
 create_readme:
 	README_generator.sh
 
@@ -23,7 +25,7 @@ pycallgraph:
 	pycallgraph graphviz -- ./produce_output.py
 
 # http://prospector.landscape.io/en/master/
-# analyze Python code and output information about errors, 
+# analyze Python code and output information about errors,
 # potential problems, convention violations and complexity.
 prospector:
 	prospector
@@ -55,11 +57,7 @@ flake8:
 # https://black.readthedocs.io/en/stable/
 # By using Black, you agree to cede control over minutiae of hand-formatting.
 black:
-	black json_schema.py
-	black produce_output.py
-	black solve.py
-	black validate_graph.py
-	black validate_json_schema.py
+	black *.py
 
 # https://www.pylint.org/
 # http://pylint.pycqa.org/en/latest/
@@ -68,7 +66,7 @@ pylint:
 	pylint $(FILE_NAME)
 
 # https://docs.python.org/3/library/doctest.html
-# searches for pieces of text that look like interactive Python sessions, and 
+# searches for pieces of text that look like interactive Python sessions, and
 # then executes those sessions to verify that they work exactly as shown.
 doctest:
 	python3 -m doctest -v $(FILE_NAME)
@@ -78,6 +76,3 @@ doctest:
 # https://en.wikipedia.org/wiki/Cyclomatic_complexity
 mccabe:
 	python3 -m mccabe $(FILE_NAME)
-
-
-

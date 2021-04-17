@@ -16,6 +16,9 @@ cat step00_produce_output.py >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
 
+The above content is from the file
+[step00_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step00_produce_output.py)
+
 # step 01
 
 Convert the script to something that can be run in the command line or used as library
@@ -29,6 +32,11 @@ diff -baur \
        tail -n +4 >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
+
+The above content is the diff of
+[step00_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step00_produce_output.py)
+and
+[step01_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step01_produce_output.py)
 
 # step 02
 
@@ -47,6 +55,12 @@ diff -buar \
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
 
+The above content is the diff of
+[step02_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step02_produce_output.py)
+and
+[step03_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step03_produce_output.py)
+
+
 # step 04
 
 Use argparse instead of sys.argv
@@ -59,6 +73,12 @@ diff -buar \
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
 
+The above content is the diff of
+[step03_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step03_produce_output.py)
+and
+[step04_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step04_produce_output.py)
+
+
 # step 05
 
 Add logging
@@ -70,3 +90,10 @@ diff -buar \
        tail -n +4 >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
+
+The above content is the diff of
+[step04_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step04_produce_output.py)
+and
+[step05_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step05_produce_output.py)
+
+# EOF

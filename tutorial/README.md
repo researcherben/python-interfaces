@@ -21,6 +21,9 @@ for node_id in range(number_of_nodes):
 print the_graph
 ```
 
+The above content is from the file
+[step00_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step00_produce_output.py)
+
 # step 01
 
 Convert the script to something that can be run in the command line or used as library
@@ -55,6 +58,11 @@ Add type hints for mypy
 +    the_graph = create_random_graph(sys.argv[1])
 +    print(the_graph)
 ```
+
+The above content is the diff of
+[step00_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step00_produce_output.py)
+and
+[step01_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step01_produce_output.py)
 
 # step 02
 
@@ -170,6 +178,12 @@ Created helper function that uses generator as an alternative mechanism for gett
 +    for edge_tuple in next_edge_in_graph(the_graph):
 +        print(edge_tuple)
 ```
+
+The above content is the diff of
+[step02_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step02_produce_output.py)
+and
+[step03_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step03_produce_output.py)
+
 
 # step 04
 
@@ -334,6 +348,12 @@ Use argparse instead of sys.argv
      for edge_tuple in next_edge_in_graph(the_graph):
          print(edge_tuple)
 ```
+
+The above content is the diff of
+[step03_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step03_produce_output.py)
+and
+[step04_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step04_produce_output.py)
+
 
 # step 05
 
@@ -574,3 +594,10 @@ Add logging
      for edge_tuple in next_edge_in_graph(the_graph):
          print(edge_tuple)
 ```
+
+The above content is the diff of
+[step04_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step04_produce_output.py)
+and
+[step05_produce_output.py](https://github.com/researcherben/python-interfaces/blob/master/tutorial/step05_produce_output.py)
+
+# EOF
