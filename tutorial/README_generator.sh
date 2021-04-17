@@ -33,7 +33,7 @@ cat << endofsnippet >> ${readme_filename}
 # step 02
 
 Added module docstring and docstring for function.
-As a consequence, help(create_random_graph) is available
+As a consequence, \`help(create_random_graph)\` is available
 
 # step 03
 
