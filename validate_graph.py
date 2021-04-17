@@ -21,10 +21,11 @@ visualization of graph using graphviz
 """
 import sys
 import json
-import networkx as nx # https://networkx.org/documentation/stable//reference/introduction.html
+import networkx as nx  # https://networkx.org/documentation/stable//reference/introduction.html
 import matplotlib.pyplot as plt
-import argparse # https://docs.python.org/3.3/library/argparse.html
-                # https://realpython.com/command-line-interfaces-python-argparse/
+import argparse  # https://docs.python.org/3.3/library/argparse.html
+
+# https://realpython.com/command-line-interfaces-python-argparse/
 
 import produce_output
 import validate_json_schema
@@ -32,38 +33,49 @@ import validate_json_schema
 
 if __name__ == "__main__":
 
-    theparser = argparse.ArgumentParser(description='validate graph', allow_abbrev=False)
+    theparser = argparse.ArgumentParser(
+        description="validate graph", allow_abbrev=False
+    )
 
     # https://stackoverflow.com/a/11155124/1164295
     group = theparser.add_mutually_exclusive_group(required=True)
     # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
-    group.add_argument('--numNodes', metavar='nodes_in_graph', type=int, default=-1,
-                        help='generate graph using Python API. User provides an integer number of nodes.')
-    group.add_argument('--JSONfilename', type=str,help='filename of JSON to parse')
+    group.add_argument(
+        "--numNodes",
+        metavar="nodes_in_graph",
+        type=int,
+        default=-1,
+        help="generate graph using Python API. User provides an integer number of nodes.",
+    )
+    group.add_argument("--JSONfilename", type=str, help="filename of JSON to parse")
     # https://stackoverflow.com/a/15008806/1164295
-    group.add_argument('--stdin', action='store_true', default=False,
-                        help='read edge tuples from stdin')
+    group.add_argument(
+        "--stdin",
+        action="store_true",
+        default=False,
+        help="read edge tuples from stdin",
+    )
 
     args = theparser.parse_args()
 
     if args.stdin:
         graph = {}
         for line in sys.stdin:
-            #print(line)
-            line_as_list = line.strip().replace("(","").replace(")","").split(", ")
-            #print(line_as_list)
+            # print(line)
+            line_as_list = line.strip().replace("(", "").replace(")", "").split(", ")
+            # print(line_as_list)
             try:
                 graph[int(line_as_list[0])].append(int(line_as_list[1]))
             except KeyError:
-                graph[int(line_as_list[0])]=[int(line_as_list[1])]
-    elif args.numNodes!=-1:
+                graph[int(line_as_list[0])] = [int(line_as_list[1])]
+    elif args.numNodes != -1:
         graph = produce_output.create_random_graph(args.numNodes)
     elif args.JSONfilename:
         with open(args.JSONfilename) as json_file:
             graph = json.load(json_file)
-        graph = {int(k):v for k,v in graph.items()}
+        graph = {int(k): v for k, v in graph.items()}
 
-    #print(graph)
+    # print(graph)
     G = nx.Graph()
     for key, list_of_nodes in graph.items():
         G.add_edges_from([(key, x) for x in list_of_nodes])
@@ -80,7 +92,11 @@ if __name__ == "__main__":
     print(dict_of_node_and_degree)
 
     for degree in set(dict_of_node_and_degree.values()):
-        print(sum(x == degree for x in dict_of_node_and_degree.values()),"nodes have degree",degree)
+        print(
+            sum(x == degree for x in dict_of_node_and_degree.values()),
+            "nodes have degree",
+            degree,
+        )
 
-    nx.draw(G)   # default spring_layout
-    plt.savefig('output.png')
+    nx.draw(G)  # default spring_layout
+    plt.savefig("output.png")

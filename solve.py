@@ -3,12 +3,14 @@
 Solve
 """
 import logging  # https://docs.python.org/3/library/logging.html
-                # https://realpython.com/python-logging-source-code/
-import argparse # https://docs.python.org/3.3/library/argparse.html
-                # https://realpython.com/command-line-interfaces-python-argparse/
+
+# https://realpython.com/python-logging-source-code/
+import argparse  # https://docs.python.org/3.3/library/argparse.html
+
+# https://realpython.com/command-line-interfaces-python-argparse/
 import os
 
-#import sys
+# import sys
 # I had been using sys for command-line arguments as per
 #       https://realpython.com/python-command-line-arguments/
 #       but argparse is the better approach
@@ -21,14 +23,13 @@ import os
 # https://google.github.io/styleguide/pyguide.html
 
 
-
 # ************ Begin logging configuration ******************
 # logging should be configured once (not per module)
 # other modules can then reference the configuration
 
 
-if not os.path.exists('logs'):
-    os.makedirs('logs')
+if not os.path.exists("logs"):
+    os.makedirs("logs")
 
 # https://gist.github.com/ibeex/3257877
 from logging.handlers import RotatingFileHandler
@@ -92,7 +93,6 @@ logger = logging.getLogger(__name__)
 # ********** begin primary functions *****************
 
 
-
 # ********** end primary functions *****************
 
 
@@ -103,36 +103,65 @@ if __name__ == "__main__":
 
     # ********** begin argparse configuration *****************
 
-    theparser = argparse.ArgumentParser(description='do a thing', allow_abbrev=False)
+    theparser = argparse.ArgumentParser(description="do a thing", allow_abbrev=False)
 
     # required positional argument
     # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
-    theparser.add_argument('N', metavar='nodes_in_graph', type=int, default=21,
-                        help='an integer number. Required. Default is 21')
+    theparser.add_argument(
+        "N",
+        metavar="nodes_in_graph",
+        type=int,
+        default=21,
+        help="an integer number. Required. Default is 21",
+    )
 
-    theparser.add_argument('L', metavar='length', type=int, default=21,
-                        help='an integer number. Required. Default is 21')
+    theparser.add_argument(
+        "L",
+        metavar="length",
+        type=int,
+        default=21,
+        help="an integer number. Required. Default is 21",
+    )
 
-    theparser.add_argument('W', metavar='width', type=int, default=21,
-                        help='an integer number. Required. Default is 21')
+    theparser.add_argument(
+        "W",
+        metavar="width",
+        type=int,
+        default=21,
+        help="an integer number. Required. Default is 21",
+    )
 
-    theparser.add_argument('Q', metavar='q', type=str, default="the",
-                        help='an integer number. Required. Default is 21')
+    theparser.add_argument(
+        "Q",
+        metavar="q",
+        type=str,
+        default="the",
+        help="an integer number. Required. Default is 21",
+    )
 
-    theparser.add_argument('d', metavar='d', type=int, default=21,
-                        help='an integer number. Required. Default is 21')
+    theparser.add_argument(
+        "d",
+        metavar="d",
+        type=int,
+        default=21,
+        help="an integer number. Required. Default is 21",
+    )
 
     # even though this script is under version control in a git repo,
     # the --version is useful for when the code base is provided to
     # a user outside of git
-    theparser.add_argument('--version', action='store_true',
-                           help="version of this script")
+    theparser.add_argument(
+        "--version", action="store_true", help="version of this script"
+    )
     # https://semver.org/
     # MAJOR version when you make incompatible API changes,
     # MINOR version when you add functionality in a backwards compatible manner, and
     # PATCH version when you make backwards compatible bug fixes.
-    theparser.add_argument('--history', action='store_true',
-                           help="history of major versions of this script")
+    theparser.add_argument(
+        "--history",
+        action="store_true",
+        help="history of major versions of this script",
+    )
 
     # ********** end argparse configuration *****************
 
@@ -148,9 +177,8 @@ if __name__ == "__main__":
         print("0.1: examplar")
         exit()
 
-
-    logger.info("user provided "+str(args.N))
-    if args.N<0:
+    logger.info("user provided " + str(args.N))
+    if args.N < 0:
         raise Exception("invalid number of nodes")
 
     # given L and W and Q and D, determine

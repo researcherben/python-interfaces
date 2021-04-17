@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import sys      # command-line arguments
-import random   # for graph construction; https://docs.python.org/3/library/random.html
+import sys  # command-line arguments
+import random  # for graph construction; https://docs.python.org/3/library/random.html
 
 # docstrings should conform to
 # https://google.github.io/styleguide/pyguide.html
@@ -20,7 +20,7 @@ this file is also intended as an examplar for how to use
 
 
 def create_random_graph(number_of_nodes: int) -> dict:
-    """ generate a graph based on user input and return a dictionary
+    """generate a graph based on user input and return a dictionary
 
     data structure of interest
 
@@ -43,8 +43,9 @@ def create_random_graph(number_of_nodes: int) -> dict:
 
     for node_id in range(number_of_nodes):
         # https://note.nkmk.me/en/python-random-choice-sample-choices/
-        edge_list = random.sample(range(number_of_nodes),
-                                           random.choice(range(number_of_nodes)))
+        edge_list = random.sample(
+            range(number_of_nodes), random.choice(range(number_of_nodes))
+        )
         if node_id in edge_list:
             edge_list.remove(node_id)
         the_graph[node_id] = edge_list

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import random   # for graph construction; https://docs.python.org/3/library/random.html
+import random  # for graph construction; https://docs.python.org/3/library/random.html
 import logging  # https://docs.python.org/3/library/logging.html
-                # https://realpython.com/python-logging-source-code/
-import argparse # https://docs.python.org/3.3/library/argparse.html
-                # https://realpython.com/command-line-interfaces-python-argparse/
+
+# https://realpython.com/python-logging-source-code/
+import argparse  # https://docs.python.org/3.3/library/argparse.html
+
+# https://realpython.com/command-line-interfaces-python-argparse/
 import os
 
-#import sys
+# import sys
 # I had been using sys for command-line arguments as per
 #       https://realpython.com/python-command-line-arguments/
 #       but argparse is the better approach
@@ -37,8 +39,8 @@ this file is also intended as an examplar for how to use
 # other modules can then reference the configuration
 
 
-if not os.path.exists('logs'):
-    os.makedirs('logs')
+if not os.path.exists("logs"):
+    os.makedirs("logs")
 
 # https://gist.github.com/ibeex/3257877
 from logging.handlers import RotatingFileHandler
@@ -101,8 +103,9 @@ logger = logging.getLogger(__name__)
 
 # ********** begin primary functions *****************
 
+
 def create_random_graph(number_of_nodes: int) -> dict:
-    """ generate a graph based on user input and return a dictionary
+    """generate a graph based on user input and return a dictionary
 
     data structure of interest
 
@@ -126,20 +129,21 @@ def create_random_graph(number_of_nodes: int) -> dict:
 
     for node_id in range(number_of_nodes):
         # https://note.nkmk.me/en/python-random-choice-sample-choices/
-        edge_list = random.sample(range(number_of_nodes),
-                                           random.choice(range(number_of_nodes)))
+        edge_list = random.sample(
+            range(number_of_nodes), random.choice(range(number_of_nodes))
+        )
         if node_id in edge_list:
             edge_list.remove(node_id)
         the_graph[node_id] = edge_list
     return the_graph
 
 
-
 # ********** end primary functions *****************
 
 # ********** begin helper functions *****************
 
-def next_edge_in_graph(the_graph:dict):
+
+def next_edge_in_graph(the_graph: dict):
     """generate every edge in the_graph
 
     generator of edges
@@ -157,7 +161,8 @@ def next_edge_in_graph(the_graph:dict):
     logger.info("[trace]")
     for left_node, list_of_nodes in the_graph.items():
         for right_node in list_of_nodes:
-            yield((left_node, right_node))
+            yield ((left_node, right_node))
+
 
 def next_edge_from_graph_of_size(num_nodes: int):
     """generate every edge in a graph of size num_nodes
@@ -177,30 +182,43 @@ def next_edge_from_graph_of_size(num_nodes: int):
     the_graph = create_graph(num_nodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):
-        yield(edge_tuple)
+        yield (edge_tuple)
+
 
 # ********** end helper functions *****************
 
 if __name__ == "__main__":
     logger.info("[trace]")
-# testing sys.argv isn't needed since argparse is being used
-#    if len(sys.argv)<2: # no command-line arguments
-        # print to stdout to enable file-on-disk or piped workflow
-#        print("fatal error", file=sys.stderr)
+    # testing sys.argv isn't needed since argparse is being used
+    #    if len(sys.argv)<2: # no command-line arguments
+    # print to stdout to enable file-on-disk or piped workflow
+    #        print("fatal error", file=sys.stderr)
 
     # ********** begin argparse configuration *****************
 
-    theparser = argparse.ArgumentParser(description='generate a graph', allow_abbrev=False)
+    theparser = argparse.ArgumentParser(
+        description="generate a graph", allow_abbrev=False
+    )
 
     # required positional argument
     # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
-    theparser.add_argument('numNodes', metavar='nodes_in_graph', type=int, default=5,
-                        help='an integer number of nodes')
+    theparser.add_argument(
+        "numNodes",
+        metavar="nodes_in_graph",
+        type=int,
+        default=5,
+        help="an integer number of nodes",
+    )
     # optional argument
     # setting random_seed is useful for consistency when testing
     # max value of seed is discussed on https://stackoverflow.com/a/50808998/1164295
-    theparser.add_argument('--seed', metavar='random_seed', type=int, default=None,
-                        help='random seed used by Python')
+    theparser.add_argument(
+        "--seed",
+        metavar="random_seed",
+        type=int,
+        default=None,
+        help="random seed used by Python",
+    )
 
     # ********** end argparse configuration *****************
 
@@ -208,7 +226,7 @@ if __name__ == "__main__":
 
     random.seed(args.seed)
 
-    logger.info("user provided "+str(args.numNodes))
+    logger.info("user provided " + str(args.numNodes))
     the_graph = create_random_graph(args.numNodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):

@@ -1,31 +1,16 @@
 # Creative Commons Attribution 4.0 International License
 # https://creativecommons.org/licenses/by/4.0/
 
-# this Makefile contains targets for use inside the Docker container and on the baremetal host
 
 # what is available?
 help:
 	@echo "make help"
 	@echo "      this message"
-	@echo "==== Targets outside container ===="
-	@echo "make docker"
-	@echo "         build and run"
-	@echo "==== Targets inside container ===="
 	@echo "make doctest"
 	@echo "make mypy"
 
-
-# intended to be run on the host only
-docker: docker_build docker_run
-docker_build:
-	time docker build -f Dockerfile -t interface_demo .
-docker_run:
-	docker run -it -v `pwd`:/scratch --rm interface_demo /bin/bash
-
-# the following targets are intended to be run inside the Docker container
-hello:
-	g++ hello_world.cpp
-
+create_readme:
+	README_generator.sh
 
 # https://mypy.readthedocs.io/en/stable/
 # Mypy is a static type checker

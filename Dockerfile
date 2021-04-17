@@ -1,3 +1,5 @@
+# Creative Commons Attribution 4.0 International License
+# https://creativecommons.org/licenses/by/4.0/
 
 # Use baseimage-docker which is a modified Ubuntu specifically for Docker
 # https://hub.docker.com/r/phusion/baseimage
@@ -12,12 +14,17 @@ RUN apt update && apt -y upgrade && apt -y install \
     doxygen \
     python3 \
     # doxygen uses "dot" to make graphs
-    graphviz \ 
+    graphviz \
     # doxygen PDF requires latex
     texlive-latex-base \
     texlive-latex-recommended texlive-pictures texlive-latex-extra \
     # doxygen latex requires make
-    make 
+    make \
+    # sphinx is a pip package
+    python3-pip
+
+RUN pip3 install sphinx jsonschema mypy prospector pycallgraph black flake8 pylint
+
 
 WORKDIR /opt/
 
@@ -47,4 +54,34 @@ RUN doxygen Doxyfile
 WORKDIR /opt/latex/
 RUN make
 
+# end of Doxygen
+
 WORKDIR /opt/
+
+# sphinx documentation
+RUN sphinx-quickstart . --sep --project "py-interface" --author "Ben" --no-batchfile --quiet
+RUN make latex
+RUN make html
+
+
+WORKDIR /opt/source/
+RUN sed -i '13 i .. automodule:: produce_output' index.rst
+RUN sed -i '13 i     :members:' index.rst
+RUN sed -i '13 i     :undoc-members:' index.rst
+RUN sed -i '13 i     :show-inheritance:' index.rst
+
+RUN sed -i "31 i    'sphinx.ext.doctest'," conf.py
+RUN sed -i "31 i    'sphinx.ext.todo'," conf.py
+RUN sed -i "31 i    'sphinx.ext.autosummary'," conf.py
+RUN sed -i "31 i    'sphinx.ext.autodoc'," conf.py
+RUN sed -i "31 i    'sphinx.ext.coverage'," conf.py
+RUN sed -i "31 i    'sphinx.ext.mathjax'," conf.py
+RUN sed -i "31 i    'sphinx.ext.viewcode'," conf.py
+RUN sed -i "31 i    'sphinx.ext.githubpages'" conf.py
+
+WORKDIR /opt/build/latex
+RUN pdflatex py-interface
+RUN pdflatex py-interface
+
+
+WORKDIR /opt
