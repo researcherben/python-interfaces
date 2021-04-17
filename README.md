@@ -1,9 +1,9 @@
 TODO: testing for structural consistency against defined specifications.
 Validate Python functions to be consistent with API definition
-    * no extra return values
-    * data type correct
-    * correct types in keys and values
-    * valid ranges per variable (int >= 0)
+ * no extra return values
+ * data type correct
+ * correct types in keys and values
+ * valid ranges per variable (int >= 0)
 
 
 # error message
