@@ -20,7 +20,8 @@ Convert the script to something that can be run in the command line or used as l
 Add type hints for mypy
 
 endofsnippet
-diff -baur step00_produce_output.py step01_produce_output.py |\
+diff -baur \
+     -U$(wc -l step01_produce_output.py | tr -s ' ' | cut -d' ' -f2) step00_produce_output.py step01_produce_output.py |\
        tail -n +4 |\
        sed -e 's/^/    /g' >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}

@@ -25,6 +25,7 @@ Convert the script to something that can be run in the command line or used as l
 
 Add type hints for mypy
 
+     #!/usr/bin/env python3
      import sys  # command-line arguments
      import random  # for graph construction; https://docs.python.org/3/library/random.html
      
@@ -39,7 +40,7 @@ Add type hints for mypy
          # https://note.nkmk.me/en/python-random-choice-sample-choices/
          edge_list = random.sample(
              range(number_of_nodes), random.choice(range(number_of_nodes))
-    @@ -13,4 +14,9 @@
+         )
          if node_id in edge_list:
              edge_list.remove(node_id)
          the_graph[node_id] = edge_list
