@@ -39,15 +39,14 @@ COPY json_schema.py \
 RUN doxygen -g
 
 # https://stackoverflow.com/questions/4755913/how-to-use-doxygen-to-create-uml-class-diagrams-from-c-source
-RUN cat Doxyfile | \
-    sed 's/^EXTRACT_ALL.*/EXTRACT_ALL = YES/' | \
-    sed 's/^UML_LOOK.*/UML_LOOK = YES/' | \
-    sed 's/^RECURSIVE.*/RECURSIVE = YES/' | \
-    sed 's/^GENERATE_TREEVIEW.*/GENERATE_TREEVIEW = YES/' | \
-    sed 's/^SOURCE_BROWSER.*/SOURCE_BROWSER = YES/' | \
-    sed 's/^CALL_GRAPH.*/CALL_GRAPH = YES/' | \
-    sed 's/^CALLER_GRAPH.*/CALLER_GRAPH = YES/' | \
-    sed 's/^HIDE_UNDOC_RELATIONS.*/HIDE_UNDOC_RELATIONS = NO/' > Doxyfile
+RUN sed -i 's/^EXTRACT_ALL.*/EXTRACT_ALL = YES/' Doxyfile && \
+    sed -i 's/^UML_LOOK.*/UML_LOOK = YES/' Doxyfile && \
+    sed -i 's/^RECURSIVE.*/RECURSIVE = YES/' Doxyfile && \
+    sed -i 's/^GENERATE_TREEVIEW.*/GENERATE_TREEVIEW = YES/' Doxyfile && \
+    sed -i 's/^SOURCE_BROWSER.*/SOURCE_BROWSER = YES/' Doxyfile && \
+    sed -i 's/^CALL_GRAPH.*/CALL_GRAPH = YES/' Doxyfile && \
+    sed -i 's/^CALLER_GRAPH.*/CALLER_GRAPH = YES/' Doxyfile && \
+    sed -i 's/^HIDE_UNDOC_RELATIONS.*/HIDE_UNDOC_RELATIONS = NO/' Doxyfile
 
 RUN doxygen Doxyfile
 
@@ -66,9 +65,9 @@ RUN make html
 
 WORKDIR /opt/source/
 RUN sed -i '13 i .. automodule:: produce_output' index.rst
-RUN sed -i '13 i     :members:' index.rst
-RUN sed -i '13 i     :undoc-members:' index.rst
-RUN sed -i '13 i     :show-inheritance:' index.rst
+RUN sed -i '14 i     :members:' index.rst
+RUN sed -i '15 i     :undoc-members:' index.rst
+RUN sed -i '16 i     :show-inheritance:' index.rst
 
 RUN sed -i "31 i    'sphinx.ext.doctest'," conf.py
 RUN sed -i "31 i    'sphinx.ext.todo'," conf.py
