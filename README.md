@@ -1,9 +1,17 @@
-TODO: testing for structural consistency against defined specifications.
-Validate Python functions to be consistent with API definition
- * no extra return values
- * data type correct
- * correct types in keys and values
- * valid ranges per variable (int >= 0)
+Given a trivial task (here we generate a random graph), implement all the best practices for exposing that capability for later re-use. For example, 
+* wrapping the code snippet in a function and then having `main` call the function allows other developers to use that same capability elsewhere by importing the function. 
+* documenting the function with a comment block that enables `help`
+* providing command-line help when calling the .py file
+* implementing logging capability 
+
+### TODO: 
+
+- [ ] testing for structural consistency against defined specifications.
+- [ ] Validate Python functions to be consistent with API definition
+   - [ ] no extra return values
+   - [ ] data type correct
+   - [ ] correct types in keys and values
+   - [ ] valid ranges per variable (int >= 0)
 
 
 # error message
