@@ -4,6 +4,8 @@ Given a trivial task (here we generate a random graph), implement all the best p
 * providing command-line help when calling the .py file
 * implementing logging capability 
 
+A tutorial folder contains the progression of adding the capabilities to the trivial task.
+
 ### TODO: 
 
 - [ ] testing for structural consistency against defined specifications.
