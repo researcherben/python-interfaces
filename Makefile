@@ -3,6 +3,8 @@
 
 # this Makefile contains targets for use inside the Docker container and on the baremetal host
 
+mytag=interface_demo
+
 # what is available?
 help:
 	@echo "make help"
@@ -18,9 +20,9 @@ help:
 # intended to be run on the host only
 docker: docker_build docker_run
 docker_build:
-	time docker build -f Dockerfile -t interface_demo .
+	time docker build -f Dockerfile -t $(mytag) .
 docker_run:
-	docker run -it -v `pwd`:/scratch --rm interface_demo /bin/bash
+	docker run -it -v `pwd`:/scratch --rm $(mytag) /bin/bash
 
 # the following targets are intended to be run inside the Docker container
 hello:
@@ -75,6 +77,7 @@ black:
 	black solve.py
 	black validate_graph.py
 	black validate_json_schema.py
+	black tutorial/*.py
 
 # https://www.pylint.org/
 # http://pylint.pycqa.org/en/latest/
@@ -94,5 +97,6 @@ doctest:
 mccabe:
 	python3 -m mccabe $(FILE_NAME)
 
-
+clean:
+	rm -rf .mypy_cache
 

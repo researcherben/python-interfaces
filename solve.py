@@ -174,7 +174,7 @@ if __name__ == "__main__":
         exit()
     if args.history:
         print("version history")
-        print("0.1: examplar")
+        print("0.1: exemplar")
         exit()
 
     logger.info("user provided " + str(args.N))

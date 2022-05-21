@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys  # command-line arguments
-import random  # for graph construction; https://docs.python.org/3/library/random.html
+# https://docs.python.org/3/library/random.html
+import random  # for graph construction
 
 # docstrings should conform to
 # https://google.github.io/styleguide/pyguide.html
@@ -13,7 +14,7 @@ this file can be used to
  * provide the graph as a data structure using a function call
 See associated README.md for examples
 
-this file is also intended as an examplar for how to use
+this file is also intended as an exemplar for how to use
 """
 
 
@@ -26,8 +27,9 @@ def create_random_graph(number_of_nodes: int) -> dict:
         number_of_nodes: how many nodes in the graph
 
     Returns:
-        the_graph: a dictionary where each key is a non-negative integer and
-        the value is a list of integers corresponding to nearest-neighbor nodes
+        the_graph: a dictionary where each key is a
+        non-negative integer and the value is a list
+        of integers corresponding to nearest-neighbor nodes
 
         {'0': [],
          '2': [1, 3],

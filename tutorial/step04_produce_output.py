@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-import random  # for graph construction; https://docs.python.org/3/library/random.html
-import argparse  # https://docs.python.org/3.3/library/argparse.html
+# https://docs.python.org/3/library/random.html
+import random  # for graph construction
+# https://docs.python.org/3.3/library/argparse.html
+import argparse
 
 # https://realpython.com/command-line-interfaces-python-argparse/
 
@@ -24,7 +26,7 @@ this file can be used to
  * provide the graph as a data structure using a function call
 See associated README.md for examples
 
-this file is also intended as an examplar for how to use
+this file is also intended as an exemplar for how to use
 * argparse
 """
 
@@ -120,7 +122,8 @@ if __name__ == "__main__":
     )
 
     # required positional argument
-    # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
+    # it is possible to constrain the input to a range;
+    # see https://stackoverflow.com/a/25295717/1164295
     theparser.add_argument(
         "numNodes",
         metavar="nodes_in_graph",
@@ -130,7 +133,8 @@ if __name__ == "__main__":
     )
     # optional argument
     # setting random_seed is useful for consistency when testing
-    # max value of seed is discussed on https://stackoverflow.com/a/50808998/1164295
+    # max value of seed is discussed on
+    # https://stackoverflow.com/a/50808998/1164295
     theparser.add_argument(
         "--seed",
         metavar="random_seed",

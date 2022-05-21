@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import random  # for graph construction; https://docs.python.org/3/library/random.html
+# https://docs.python.org/3/library/random.html
+import random  # for graph construction
 import sys
 
 # docstrings should conform to
@@ -25,8 +26,9 @@ def create_random_graph(number_of_nodes: int) -> dict:
         number_of_nodes: how many nodes in the graph
 
     Returns:
-        the_graph: a dictionary where each key is a non-negative integer and
-        the value is a list of integers corresponding to nearest-neighbor nodes
+        the_graph: a dictionary where each key is a
+        non-negative integer and the value is a list
+        of integers corresponding to nearest-neighbor nodes
 
         {'0': [],
          '2': [1, 3],

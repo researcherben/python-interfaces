@@ -8,7 +8,7 @@ this file can be used to
  * provide the graph as a data structure using a function call
 See associated README.md for examples
 
-this file is also intended as an examplar for how to use
+this file is also intended as an exemplar for how to use
 * logging
 * argparse
 """
@@ -22,7 +22,7 @@ import argparse  # https://docs.python.org/3.3/library/argparse.html
 import os
 import json
 
-import networkx as nx
+import networkx as nx # type: ignore
 
 # import sys
 # I had been using sys for command-line arguments as per
@@ -175,21 +175,39 @@ def create_fully_connected_graph(number_of_nodes: int) -> dict:
 def create_grid_graph(width: int, height: int) -> dict:
     """
     https://networkx.org/documentation/stable/reference/generated/networkx.generators.lattice.grid_graph.html
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
     """
     logger.info("[trace]")
     the_graph = {}
-    G = grid_graph(dim=[width, height])
+    G = nx.grid_graph(dim=[width, height])
     return the_graph
 
 
 def create_hexagonal_graph(width: int, height: int) -> dict:
     """
     https://networkx.org/documentation/stable/reference/generated/networkx.generators.lattice.hexagonal_lattice_graph.html
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
     """
     logger.info("[trace]")
-    G = nx.hexagonal_lattice_graph(width, height)
-
     the_graph = {}
+
+    G = nx.hexagonal_lattice_graph(width, height)
 
     return the_graph
 
@@ -343,7 +361,7 @@ if __name__ == "__main__":
         exit()
     if args.history:
         print("version history")
-        print("0.1: examplar")
+        print("0.1: exemplar")
         exit()
 
     random.seed(args.seed)

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys  # command-line arguments
-import random  # for graph construction; https://docs.python.org/3/library/random.html
+# https://docs.python.org/3/library/random.html
+import random  # for graph construction
 
 
 def create_random_graph(number_of_nodes: int) -> dict:

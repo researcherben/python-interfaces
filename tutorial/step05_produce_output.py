@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import random  # for graph construction; https://docs.python.org/3/library/random.html
+# https://docs.python.org/3/library/random.html
+import random  # for graph construction
 import logging  # https://docs.python.org/3/library/logging.html
 
 # https://realpython.com/python-logging-source-code/
@@ -28,7 +29,7 @@ this file can be used to
  * provide the graph as a data structure using a function call
 See associated README.md for examples
 
-this file is also intended as an examplar for how to use
+this file is also intended as an exemplar for how to use
 * logging
 * argparse
 """
@@ -74,8 +75,10 @@ handler_warning.setLevel(logging.WARNING)
 # https://docs.python.org/3/howto/logging.html
 logging.basicConfig(
     # either (filename + filemode) XOR handlers
-    # filename="test.log", # to save entries to file instead of displaying to stderr
-    # filemode="w", # https://docs.python.org/dev/library/functions.html#filemodes
+    # to save entries to file instead of displaying to stderr
+    # filename="test.log",
+    # https://docs.python.org/dev/library/functions.html#filemodes
+    # filemode="w",
     handlers=[handler_debug, handler_info, handler_warning],
     # if the severity level is INFO,
     # the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages
@@ -83,11 +86,13 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s|%(filename)-13s|%(levelname)-5s|%(lineno)-4d|%(funcName)-20s|%(message)s"  # ,
     # https://stackoverflow.com/questions/6290739/python-logging-use-milliseconds-in-time-format/7517430#7517430
-    # datefmt="%m/%d/%Y %I:%M:%S %f %p", # https://strftime.org/
+    # datefmt="%m/%d/%Y %I:%M:%S %f %p",
+    # https://strftime.org/
 )
 
 # https://docs.python.org/3/howto/logging.html
-# if the severity level is INFO, the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages and will ignore DEBUG messages
+# if the severity level is INFO, the logger will handle
+# only INFO, WARNING, ERROR, and CRITICAL messages and will ignore DEBUG messages
 # handler.setLevel(logging.INFO)
 # handler.setLevel(logging.DEBUG)
 
@@ -201,7 +206,8 @@ if __name__ == "__main__":
     )
 
     # required positional argument
-    # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
+    # it is possible to constrain the input to a range;
+    # see https://stackoverflow.com/a/25295717/1164295
     theparser.add_argument(
         "numNodes",
         metavar="nodes_in_graph",
@@ -211,7 +217,8 @@ if __name__ == "__main__":
     )
     # optional argument
     # setting random_seed is useful for consistency when testing
-    # max value of seed is discussed on https://stackoverflow.com/a/50808998/1164295
+    # max value of seed is discussed on
+    # https://stackoverflow.com/a/50808998/1164295
     theparser.add_argument(
         "--seed",
         metavar="random_seed",
