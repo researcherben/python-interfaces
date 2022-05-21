@@ -27,9 +27,24 @@ Add type hints for mypy
 
 endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
-diff -baur \
-     -U$(wc -l step01_produce_output.py | tr -s ' ' | cut -d' ' -f2) step00_produce_output.py step01_produce_output.py |\
-       tail -n +4 >> ${readme_filename}
+#diff --ignore-space-change \  # ignore changes in the amount of white space
+#     --text \                 # treat all files as text
+#     --unified=$(wc -l step01_produce_output.py | tr -s ' ' | cut -d' ' -f2) \ # output NUM lines of unified context
+#         step00_produce_output.py step01_produce_output.py |\
+#       tail -n +4 >> ${readme_filename}
+
+# https://stackoverflow.com/a/1655488/1164295
+max_line_length_1=`awk '{print length, $0}' step00_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_2=`awk '{print length, $0}' step01_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+# https://www.log2base2.com/shell-script-examples/operator/how-to-add-two-variables-in-shell-script.html
+total_length=$(($max_line_length_1 + $max_line_length_2)) 
+diff --ignore-space-change \  # ignore changes in the amount of white space
+     --text \                 # treat all files as text
+     --unified=$(wc -l step01_produce_output.py | tr -s ' ' | cut -d' ' -f2) \ # output NUM lines of unified context
+     --width=${total_length}
+     --side-by-side
+        step00_produce_output.py step01_produce_output.py >> ${readme_filename}
+
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
 
@@ -49,7 +64,8 @@ Created helper function that uses generator as an alternative mechanism for gett
 
 endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
-diff -buar \
+diff --ignore-space-change \  # ignore changes in the amount of white space
+     --text \                 # treat all files as text 
      -U$(wc -l step03_produce_output.py | tr -s ' ' | cut -d' ' -f2) step02_produce_output.py step03_produce_output.py |\
        tail -n +4 >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}
@@ -67,7 +83,8 @@ Use argparse instead of sys.argv
 
 endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
-diff -buar \
+diff --ignore-space-change \  # ignore changes in the amount of white space
+     --text \                 # treat all files as text
      -U$(wc -l step04_produce_output.py | tr -s ' ' | cut -d' ' -f2) step03_produce_output.py step04_produce_output.py |\
        tail -n +4 >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}

@@ -2,7 +2,7 @@
 import sys  # command-line arguments
 import random  # for graph construction; https://docs.python.org/3/library/random.html
 
-number_of_nodes = sys.argv[1]
+number_of_nodes = int(sys.argv[1])
 the_graph = {}
 
 for node_id in range(number_of_nodes):
@@ -13,4 +13,4 @@ for node_id in range(number_of_nodes):
     if node_id in edge_list:
         edge_list.remove(node_id)
     the_graph[node_id] = edge_list
-print the_graph
+print(the_graph)

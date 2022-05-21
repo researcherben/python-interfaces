@@ -18,5 +18,6 @@ def create_random_graph(number_of_nodes: int) -> dict:
 
 
 if __name__ == "__main__":
-    the_graph = create_random_graph(sys.argv[1])
+    number_of_nodes = int(sys.argv[1])
+    the_graph = create_random_graph(number_of_nodes)
     print(the_graph)

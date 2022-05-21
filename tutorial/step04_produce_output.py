@@ -25,7 +25,6 @@ this file can be used to
 See associated README.md for examples
 
 this file is also intended as an examplar for how to use
-* logging
 * argparse
 """
 
@@ -50,7 +49,6 @@ def create_random_graph(number_of_nodes: int) -> dict:
     >>> create_random_graph(4) #doctest:+SKIP
     {0: [], 1: [2], 2: [1, 3], 3: [2]}
     """
-    logger.info("[trace]")
     the_graph = {}
 
     for node_id in range(number_of_nodes):
@@ -101,7 +99,7 @@ def next_edge_from_graph_of_size(num_nodes: int):
 
     >>> next_edge_from_graph_of_size(4) #doctest:+SKIP
     """
-    the_graph = create_graph(num_nodes)
+    the_graph = create_random_graph(num_nodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):
         yield (edge_tuple)

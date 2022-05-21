@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import random  # for graph construction; https://docs.python.org/3/library/random.html
+import sys
 
 # docstrings should conform to
 # https://google.github.io/styleguide/pyguide.html
@@ -12,9 +13,6 @@ this file can be used to
  * provide the graph as a data structure using a function call
 See associated README.md for examples
 
-this file is also intended as an examplar for how to use
-* logging
-* argparse
 """
 
 
@@ -38,7 +36,6 @@ def create_random_graph(number_of_nodes: int) -> dict:
     >>> create_random_graph(4) #doctest:+SKIP
     {0: [], 1: [2], 2: [1, 3], 3: [2]}
     """
-    logger.info("[trace]")
     the_graph = {}
 
     for node_id in range(number_of_nodes):
@@ -67,7 +64,6 @@ def next_edge_in_graph(the_graph: dict):
 
     >>> next_edge_in_graph({}) #doctest:+SKIP
     """
-    logger.info("[trace]")
     for left_node, list_of_nodes in the_graph.items():
         for right_node in list_of_nodes:
             yield ((left_node, right_node))
@@ -87,7 +83,6 @@ def next_edge_from_graph_of_size(num_nodes: int):
 
     >>> next_edge_from_graph_of_size(4) #doctest:+SKIP
     """
-    logger.info("[trace]")
     the_graph = create_random_graph(num_nodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):
@@ -95,7 +90,8 @@ def next_edge_from_graph_of_size(num_nodes: int):
 
 
 if __name__ == "__main__":
-    the_graph = create_random_graph(sys.argv[1])
+    number_of_nodes = int(sys.argv[1])
+    the_graph = create_random_graph(number_of_nodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):
         print(edge_tuple)

@@ -179,7 +179,7 @@ def next_edge_from_graph_of_size(num_nodes: int):
     >>> next_edge_from_graph_of_size(4) #doctest:+SKIP
     """
     logger.info("[trace]")
-    the_graph = create_graph(num_nodes)
+    the_graph = create_random_graph(num_nodes)
 
     for edge_tuple in next_edge_in_graph(the_graph):
         yield (edge_tuple)

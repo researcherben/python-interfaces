@@ -23,7 +23,8 @@ RUN apt update && apt -y upgrade && apt -y install \
     # sphinx is a pip package
     python3-pip
 
-RUN pip3 install sphinx jsonschema mypy prospector pycallgraph black flake8 pylint
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt 
 
 
 WORKDIR /opt/

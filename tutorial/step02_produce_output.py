@@ -14,8 +14,6 @@ this file can be used to
 See associated README.md for examples
 
 this file is also intended as an examplar for how to use
-* logging
-* argparse
 """
 
 
@@ -53,5 +51,6 @@ def create_random_graph(number_of_nodes: int) -> dict:
 
 
 if __name__ == "__main__":
-    the_graph = create_random_graph(sys.argv[1])
+    number_of_nodes = int(sys.argv[1])
+    the_graph = create_random_graph(number_of_nodes)
     print(the_graph)
