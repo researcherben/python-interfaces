@@ -53,6 +53,8 @@ max_line_length_2=`awk '{print length, $0}' ../input_files/step01_produce_output
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
+     --ignore-blank-lines
+     -U -1
      --width=${total_length} \
      --expand-tabs \
         ../input_files/step00_produce_output.py ../input_files/step01_produce_output.py >> ${readme_filename}
@@ -88,6 +90,8 @@ max_line_length_2=`awk '{print length, $0}' ../input_files/step03_produce_output
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
+      --ignore-blank-lines \
+      -U -1 \
      --width=${total_length} \
      --expand-tabs \
         ../input_files/step02_produce_output.py ../input_files/step03_produce_output.py >> ${readme_filename}
@@ -120,6 +124,8 @@ max_line_length_2=`awk '{print length, $0}' ../input_files/step04_produce_output
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
+--ignore-blank-lines \
+-U -1 \
      --width=${total_length} \
      --expand-tabs \
         ../input_files/step03_produce_output.py ../input_files/step04_produce_output.py >> ${readme_filename}
@@ -150,6 +156,8 @@ max_line_length_2=`awk '{print length, $0}' ../input_files/step05_produce_output
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
+--ignore-blank-lines \
+-U -1 \
      --width=${total_length} \
      --expand-tabs \
         ../input_files/step04_produce_output.py ../input_files/step05_produce_output.py >> ${readme_filename}
