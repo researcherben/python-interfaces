@@ -13,7 +13,7 @@ set -uxo pipefail
 #        before it executes it. It is unspecified whether the command that turns tracing off is traced.
 # -o     Write the current settings of the options to standard output in an unspecified format.
 
-readme_filename=README.md
+readme_filename=README_inline_diff.md
 
 rm -f ${readme_filename}
 
@@ -24,8 +24,8 @@ The essential aspect of the script: create a dictionary that represents nodes an
 
 endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
-#cat step00_produce_output.py | sed -e 's/^/    /g' >> ${readme_filename}
-cat step00_produce_output.py >> ${readme_filename}
+#cat ../input_files/step00_produce_output.py | sed -e 's/^/    /g' >> ${readme_filename}
+cat ../input_files/step00_produce_output.py >> ${readme_filename}
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
 
@@ -42,21 +42,20 @@ endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
 #diff --ignore-space-change \  # ignore changes in the amount of white space
 #     --text `# treat all files as text` \
-#     --unified=$(wc -l step01_produce_output.py | cut -d' ' -f1) `# output NUM lines of unified context` \
-#         step00_produce_output.py step01_produce_output.py |\
+#     --unified=$(wc -l ../input_files/step01_produce_output.py | cut -d' ' -f1) `# output NUM lines of unified context` \
+#         ../input_files/step00_produce_output.py ../input_files/step01_produce_output.py |\
 #       tail -n +4 >> ${readme_filename}
 
 # https://stackoverflow.com/a/1655488/1164295
-max_line_length_1=`awk '{print length, $0}' step00_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
-max_line_length_2=`awk '{print length, $0}' step01_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_1=`awk '{print length, $0}' ../input_files/step00_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_2=`awk '{print length, $0}' ../input_files/step01_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
 # https://www.log2base2.com/shell-script-examples/operator/how-to-add-two-variables-in-shell-script.html
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
      --width=${total_length} \
      --expand-tabs \
-     --side-by-side \
-        step00_produce_output.py step01_produce_output.py >> ${readme_filename}
+        ../input_files/step00_produce_output.py ../input_files/step01_produce_output.py >> ${readme_filename}
 
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
@@ -79,20 +78,19 @@ endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
 # diff --ignore-space-change \  # ignore changes in the amount of white space
 #      --text \                 # treat all files as text
-#      -U$(wc -l step03_produce_output.py | tr -s ' ' | cut -d' ' -f2) step02_produce_output.py step03_produce_output.py |\
+#      -U$(wc -l ../input_files/step03_produce_output.py | tr -s ' ' | cut -d' ' -f2) ../input_files/step02_produce_output.py ../input_files/step03_produce_output.py |\
 #        tail -n +4 >> ${readme_filename}
 
 # https://stackoverflow.com/a/1655488/1164295
-max_line_length_1=`awk '{print length, $0}' step02_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
-max_line_length_2=`awk '{print length, $0}' step03_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_1=`awk '{print length, $0}' ../input_files/step02_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_2=`awk '{print length, $0}' ../input_files/step03_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
 # https://www.log2base2.com/shell-script-examples/operator/how-to-add-two-variables-in-shell-script.html
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
      --width=${total_length} \
      --expand-tabs \
-     --side-by-side \
-        step02_produce_output.py step03_produce_output.py >> ${readme_filename}
+        ../input_files/step02_produce_output.py ../input_files/step03_produce_output.py >> ${readme_filename}
 
 
 echo "\`\`\`" >> ${readme_filename}
@@ -112,20 +110,19 @@ endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
 # diff --ignore-space-change \  # ignore changes in the amount of white space
 #      --text \                 # treat all files as text
-#      -U$(wc -l step04_produce_output.py | tr -s ' ' | cut -d' ' -f2) step03_produce_output.py step04_produce_output.py |\
+#      -U$(wc -l ../input_files/step04_produce_output.py | tr -s ' ' | cut -d' ' -f2) ../input_files/step03_produce_output.py ../input_files/step04_produce_output.py |\
 #        tail -n +4 >> ${readme_filename}
 
 # https://stackoverflow.com/a/1655488/1164295
-max_line_length_1=`awk '{print length, $0}' step03_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
-max_line_length_2=`awk '{print length, $0}' step04_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_1=`awk '{print length, $0}' ../input_files/step03_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_2=`awk '{print length, $0}' ../input_files/step04_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
 # https://www.log2base2.com/shell-script-examples/operator/how-to-add-two-variables-in-shell-script.html
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
      --width=${total_length} \
      --expand-tabs \
-     --side-by-side \
-        step03_produce_output.py step04_produce_output.py >> ${readme_filename}
+        ../input_files/step03_produce_output.py ../input_files/step04_produce_output.py >> ${readme_filename}
 
 echo "\`\`\`" >> ${readme_filename}
 cat << endofsnippet >> ${readme_filename}
@@ -143,20 +140,19 @@ Add logging
 endofsnippet
 echo "\`\`\`python" >> ${readme_filename}
 # diff -buar \
-#      -U$(wc -l step05_produce_output.py | tr -s ' ' | cut -d' ' -f2) step04_produce_output.py step05_produce_output.py |\
+#      -U$(wc -l ../input_files/step05_produce_output.py | tr -s ' ' | cut -d' ' -f2) ../input_files/step04_produce_output.py ../input_files/step05_produce_output.py |\
 #        tail -n +4 >> ${readme_filename}
 
 # https://stackoverflow.com/a/1655488/1164295
-max_line_length_1=`awk '{print length, $0}' step04_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
-max_line_length_2=`awk '{print length, $0}' step05_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_1=`awk '{print length, $0}' ../input_files/step04_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
+max_line_length_2=`awk '{print length, $0}' ../input_files/step05_produce_output.py |sort -nr|head -1|cut -d' ' -f1`
 # https://www.log2base2.com/shell-script-examples/operator/how-to-add-two-variables-in-shell-script.html
 total_length=$(($max_line_length_1 + $max_line_length_2))
 # https://stackoverflow.com/a/12797512/1164295
 diff --ignore-space-change `# ignore changes in the amount of white space` \
      --width=${total_length} \
      --expand-tabs \
-     --side-by-side \
-        step04_produce_output.py step05_produce_output.py >> ${readme_filename}
+        ../input_files/step04_produce_output.py ../input_files/step05_produce_output.py >> ${readme_filename}
 
 
 echo "\`\`\`" >> ${readme_filename}
