@@ -108,7 +108,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_random_graph(number_of_nodes: int) -> dict:
-    """generate a graph based on user input and return a dictionary
+    """generate a directed graph based on user input and return a dictionary
 
     data structure of interest
 
@@ -131,12 +131,18 @@ def create_random_graph(number_of_nodes: int) -> dict:
     the_graph = {}
 
     for node_id in range(number_of_nodes):
+        
+        # for each node, connect to a random number of other nodes
         # https://note.nkmk.me/en/python-random-choice-sample-choices/
         edge_list = random.sample(
             range(number_of_nodes), random.choice(range(number_of_nodes))
         )
+        
+        # don't let a node connect to itself
         if node_id in edge_list:
             edge_list.remove(node_id)
+
+        # the data struture to store the graph is "for each node, what other nodes are connected?"
         the_graph[node_id] = edge_list
     return the_graph
 
@@ -188,6 +194,7 @@ def create_grid_graph(width: int, height: int) -> dict:
     logger.info("[trace]")
     the_graph = {}
     G = nx.grid_graph(dim=[width, height])
+    # TODO: convert G to my propietary data structure
     return the_graph
 
 
@@ -208,7 +215,7 @@ def create_hexagonal_graph(width: int, height: int) -> dict:
     the_graph = {}
 
     G = nx.hexagonal_lattice_graph(width, height)
-
+    # TODO: convert G to my propietary data structure
     return the_graph
 
 
@@ -349,6 +356,8 @@ if __name__ == "__main__":
         action="store_true",
         help="history of major versions of this script",
     )
+
+    # TODO: add arguments that expose the graph type: random, ring, grid, hexagonal, fully-connected
 
     # ********** end argparse configuration *****************
 
