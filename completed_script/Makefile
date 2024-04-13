@@ -1,29 +1,44 @@
+FILE_NAME=produce_output.py
+
 help:
 	@echo "make doctest"
 	@echo "make mypy"
-	@echo "pycallgraph"
-	@echo "prospector"
-	@echo "flake8"
-	@echo "black"
-	@echo "pylint"
-	@echo "mccabe"
+	@echo "make pycallgraph"
+	@echo "make prospector"
+	@echo "make flake8"
+	@echo "make black"
+	@echo "make pylint"
+	@echo "make mccabe"
 
+
+docker_shell:
+	docker run -it -v `pwd`:/scratch --rm interface_demo /bin/bash
 
 # https://mypy.readthedocs.io/en/stable/
 # Mypy is a static type checker
 mypy:
-	mypy --check-untyped-defs produce_output.py
+	mypy --check-untyped-defs $(FILE_NAME)
+
+docker_mypy:
+	docker run -it -v `pwd`:/scratch --rm interface_demo mypy --check-untyped-defs /scratch/$(FILE_NAME)
 
 # https://pycallgraph.readthedocs.io/en/master/
 # creates call graph visualizations
 pycallgraph:
-	pycallgraph graphviz -- ./produce_output.py
+	pycallgraph graphviz -- ./$(FILE_NAME)
+
+docker_pycallgraph:
+	docker run -it -v `pwd`:/scratch --rm interface_demo pycallgraph graphviz -- /scratch/$(FILE_NAME)
 
 # http://prospector.landscape.io/en/master/
 # analyze Python code and output information about errors, 
 # potential problems, convention violations and complexity.
 prospector:
 	prospector
+# as of 2024-04-13 prospector isn't working for me:
+#     from pylint.config import find_pylintrc
+# ImportError: cannot import name 'find_pylintrc' from 'pylint.config' (/usr/local/lib/python3.10/dist-packages/pylint/config/__init__.py)
+
 
 # https://flake8.pycqa.org/en/latest/
 # enforce style consistency across Python projects.
@@ -53,7 +68,7 @@ flake8:
 # By using Black, you agree to cede control over minutiae of hand-formatting.
 black:
 	black json_schema.py
-	black produce_output.py
+	black $(FILE_NAME)
 	black validate_graph.py
 	black validate_json_schema.py
 
@@ -69,6 +84,10 @@ pylint:
 doctest:
 	python3 -m doctest -v $(FILE_NAME)
 
+docker_doctest:
+	docker run -it -v `pwd`:/scratch --rm interface_demo make -f /scratch/Makefile doctest FILE_NAME=produce_output.py 
+
+
 # https://pypi.org/project/mccabe/
 # check McCabe complexity; see
 # https://en.wikipedia.org/wiki/Cyclomatic_complexity
@@ -76,5 +95,5 @@ mccabe:
 	python3 -m mccabe $(FILE_NAME)
 
 clean:
-	rm -rf .mypy_cache
+	rm -rf .mypy_cache __pycache__
 

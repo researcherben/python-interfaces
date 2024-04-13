@@ -22,7 +22,7 @@ import argparse  # https://docs.python.org/3.3/library/argparse.html
 import os
 import json
 
-import networkx as nx # type: ignore
+import networkx as nx  # type: ignore
 
 # import sys
 # I had been using sys for command-line arguments as per
@@ -84,7 +84,7 @@ logging.basicConfig(
     # the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages
     # and will ignore DEBUG messages
     level=logging.DEBUG,
-    format="%(asctime)s|%(filename)-13s|%(levelname)-5s|%(lineno)-4d|%(funcName)-20s|%(message)s"  # ,
+    format="%(asctime)s|%(filename)-13s|%(levelname)-5s|%(lineno)-4d|%(funcName)-20s|%(message)s",  # ,
     # https://stackoverflow.com/questions/6290739/python-logging-use-milliseconds-in-time-format/7517430#7517430
     # datefmt="%m/%d/%Y %I:%M:%S %f %p", # https://strftime.org/
 )
@@ -131,13 +131,13 @@ def create_random_graph(number_of_nodes: int) -> dict:
     the_graph = {}
 
     for node_id in range(number_of_nodes):
-        
+
         # for each node, connect to a random number of other nodes
         # https://note.nkmk.me/en/python-random-choice-sample-choices/
         edge_list = random.sample(
             range(number_of_nodes), random.choice(range(number_of_nodes))
         )
-        
+
         # don't let a node connect to itself
         if node_id in edge_list:
             edge_list.remove(node_id)

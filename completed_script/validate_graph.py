@@ -31,6 +31,28 @@ import produce_output
 import validate_json_schema
 
 
+def convert_to_networkx(graph):
+    """ """
+    G = nx.Graph()
+    for key, list_of_nodes in graph.items():
+        G.add_edges_from([(key, x) for x in list_of_nodes])
+    return G
+
+
+def test_whether_graph_is_connected(G):
+    """ """
+    if not nx.is_connected(G):
+        raise Exception("graph is not connected")
+
+    return
+
+
+def create_png(G):
+    """ """
+    nx.draw(G)  # default spring_layout
+    plt.savefig("output.png")
+
+
 if __name__ == "__main__":
 
     theparser = argparse.ArgumentParser(
@@ -76,12 +98,9 @@ if __name__ == "__main__":
         graph = {int(k): v for k, v in graph.items()}
 
     # print(graph)
-    G = nx.Graph()
-    for key, list_of_nodes in graph.items():
-        G.add_edges_from([(key, x) for x in list_of_nodes])
+    G = convert_to_networkx(graph)
 
-    if not nx.is_connected(G):
-        raise Exception("graph is not connected")
+    test_whether_graph_is_connected(G)
 
     # https://stackoverflow.com/a/47451934/1164295
     dict_of_node_and_degree = {}
@@ -98,5 +117,6 @@ if __name__ == "__main__":
             degree,
         )
 
-    nx.draw(G)  # default spring_layout
-    plt.savefig("output.png")
+    create_png(G)
+
+# EOF
