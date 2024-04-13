@@ -23,17 +23,16 @@ RUN apt update && apt -y upgrade && apt -y install \
     # sphinx is a pip package
     python3-pip
 
-COPY requirements.txt requirements.txt
+COPY completed_script/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt 
 
 
 WORKDIR /opt/
 
-COPY json_schema.py \
-     produce_output.py \
-     solve.py \
-     validate_graph.py \
-     validate_json_schema.py \
+COPY completed_script/json_schema.py \
+     completed_script/produce_output.py \
+     completed_script/validate_graph.py \
+     completed_script/validate_json_schema.py \
      /opt/
 
 # https://www.doxygen.nl/manual/starting.html

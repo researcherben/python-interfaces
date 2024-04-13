@@ -24,10 +24,6 @@ docker_build:
 docker_run:
 	docker run -it -v `pwd`:/scratch --rm $(mytag) /bin/bash
 
-# the following targets are intended to be run inside the Docker container
-hello:
-	g++ hello_world.cpp
-
 
 # https://mypy.readthedocs.io/en/stable/
 # Mypy is a static type checker

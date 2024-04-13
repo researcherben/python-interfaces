@@ -3,6 +3,10 @@ Given a trivial task (here we generate a random graph), implement all the best p
 * documenting the function with a comment block that enables `help`
 * providing command-line help when calling the .py file
 * implementing logging capability 
+* wrapping the snippet in a function implies testing the function
+* fuzzing
+* performance characterization: scaling tests of memory, wall-clock time
+ 
 
 A tutorial folder contains the progression of adding the capabilities to the trivial task.
 

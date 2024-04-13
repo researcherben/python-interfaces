@@ -6,6 +6,7 @@
 help:
 	@echo "make help"
 	@echo "      this message"
+	@echo "make create_readme"
 	@echo "make doctest"
 	@echo "make mypy"
 
