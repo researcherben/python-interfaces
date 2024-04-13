@@ -1,9 +1,13 @@
 FILE_NAME=produce_output.py
 
 help:
+	@echo "make docker_shell"
 	@echo "make doctest"
+	@echo "        make docker_doctest"
 	@echo "make mypy"
+	@echo "        make docker_mypy"
 	@echo "make pycallgraph"
+	@echo "        make docker_pycallgraph"
 	@echo "make prospector"
 	@echo "make flake8"
 	@echo "make black"
@@ -14,6 +18,11 @@ help:
 docker_shell:
 	docker run -it -v `pwd`:/scratch --rm interface_demo /bin/bash
 
+
+
+
+
+
 # https://mypy.readthedocs.io/en/stable/
 # Mypy is a static type checker
 mypy:
@@ -21,6 +30,25 @@ mypy:
 
 docker_mypy:
 	docker run -it -v `pwd`:/scratch --rm interface_demo mypy --check-untyped-defs /scratch/$(FILE_NAME)
+
+
+
+# https://behave.readthedocs.io/en/latest/
+# https://github.com/behave/behave
+# "behave is a behavior-driven (BDD) test framework that is very similar to Cucumber, Cucumber-JVM, and SpecFlow."
+# https://automationpanda.com/2018/05/11/python-testing-101-behave/
+
+
+
+
+# https://automationpanda.com/2017/03/10/python-testing-101-unittest/
+
+
+
+
+# https://automationpanda.com/2017/03/14/python-testing-101-pytest/
+
+
 
 # https://pycallgraph.readthedocs.io/en/master/
 # creates call graph visualizations
@@ -95,5 +123,6 @@ mccabe:
 	python3 -m mccabe $(FILE_NAME)
 
 clean:
-	rm -rf .mypy_cache __pycache__
+	rm -rf .mypy_cache __pycache__ logs *.json
 
+#EOF

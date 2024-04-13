@@ -22,6 +22,8 @@ import argparse  # https://docs.python.org/3.3/library/argparse.html
 import os
 import json
 
+import networkx as nx  # type: ignore
+
 # import sys
 # I had been using sys for command-line arguments as per
 #       https://realpython.com/python-command-line-arguments/
@@ -125,7 +127,7 @@ def create_random_graph(number_of_nodes: int) -> dict:
     >>> create_random_graph(4) #doctest:+SKIP
     {0: [], 1: [2], 2: [1, 3], 3: [2]}
     """
-    logger.info("[trace: create_random_graph]")
+    logger.info("[trace]")
     the_graph = {}
 
     for node_id in range(number_of_nodes):
@@ -145,6 +147,110 @@ def create_random_graph(number_of_nodes: int) -> dict:
     return the_graph
 
 
+# added so that the pycallgraph would look interesting
+def create_fully_connected_graph(number_of_nodes: int) -> dict:
+    """generate a graph based on user input and return a dictionary
+
+    alternative data structure of interest
+
+    Args:
+        number_of_nodes: how many nodes in the graph
+
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
+    >>> create_fully_connected_graph(4) #doctest:+SKIP
+    {0: [1, 2, 3], 1: [0, 2, 3], 2: [0, 1, 3], 3: [0, 1, 2]}
+    """
+    logger.info("[trace]")
+    the_graph = {}
+
+    for node_id in range(number_of_nodes):
+        edge_list = list(range(number_of_nodes))
+        if node_id in edge_list:
+            edge_list.remove(node_id)
+        the_graph[node_id] = edge_list
+    return the_graph
+
+# added so that the pycallgraph would look interesting
+def create_grid_graph(width: int, height: int) -> dict:
+    """
+    https://networkx.org/documentation/stable/reference/generated/networkx.generators.lattice.grid_graph.html
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
+    """
+    logger.info("[trace]")
+    the_graph = {}
+    G = nx.grid_graph(dim=[width, height])
+    # TODO: convert G to my propietary data structure
+    return the_graph
+
+
+# added so that the pycallgraph would look interesting
+def create_hexagonal_graph(width: int, height: int) -> dict:
+    """
+    https://networkx.org/documentation/stable/reference/generated/networkx.generators.lattice.hexagonal_lattice_graph.html
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
+    """
+    logger.info("[trace]")
+    the_graph = {}
+
+    G = nx.hexagonal_lattice_graph(width, height)
+    # TODO: convert G to my propietary data structure
+    return the_graph
+
+
+# added so that the pycallgraph would look interesting
+def create_ring_graph(number_of_nodes: int) -> dict:
+    """generate a graph based on user input and return a dictionary
+
+    https://networkx.org/documentation/stable/reference/generated/networkx.generators.classic.cycle_graph.html#networkx.generators.classic.cycle_graph
+    another data structure of interest
+
+    Args:
+        number_of_nodes: how many nodes in the graph
+
+    Returns:
+        the_graph: a dictionary where each key is a non-negative integer and
+        the value is a list of integers corresponding to all other nodes
+
+        {'0': [1, 2, 3]
+         '2': [0, 1, 3],
+         '1': [0, 2, 3],
+         '3': [0, 1, 2]}
+
+    >>> create_ring_graph(4)
+    {0: [1], 1: [2], 2: [3], 3: [0]}
+    """
+    logger.info("[trace]")
+
+    return dict(
+        zip(
+            range(number_of_nodes),
+            [(x + 1) % number_of_nodes for x in range(number_of_nodes)],
+        )
+    )
 
 
 # ********** end primary functions *****************
@@ -167,16 +273,37 @@ def next_edge_in_graph(the_graph: dict):
 
     >>> next_edge_in_graph({}) #doctest:+SKIP
     """
-    logger.info("[trace: next_edge_in_graph]")
+    logger.info("[trace]")
     for left_node, list_of_nodes in the_graph.items():
         for right_node in list_of_nodes:
             yield ((left_node, right_node))
 
 
+def next_edge_from_graph_of_size(num_nodes: int):
+    """generate every edge in a graph of size num_nodes
+
+    generator of edges
+    This is a helper function to access the primary data structure
+
+    Args:
+        num_nodes: number of nodes in graph
+
+    Returns:
+        tuple of 2 integers. Each integer is the index of a node
+
+    >>> next_edge_from_graph_of_size(4) #doctest:+SKIP
+    """
+    logger.info("[trace]")
+    the_graph = create_random_graph(num_nodes)
+
+    for edge_tuple in next_edge_in_graph(the_graph):
+        yield (edge_tuple)
+
+
 # ********** end helper functions *****************
 
 if __name__ == "__main__":
-    logger.info("[trace: main]")
+    logger.info("[trace]")
     # testing sys.argv isn't needed since argparse is being used
     #    if len(sys.argv)<2: # no command-line arguments
     # print to stdout to enable file-on-disk or piped workflow
@@ -257,11 +384,8 @@ if __name__ == "__main__":
 
     the_graph = create_random_graph(args.numNodes)
 
-    # write result to either JSON or stdout
     if args.json:
         print(json.dumps(the_graph, indent=2))
     else:
         for edge_tuple in next_edge_in_graph(the_graph):
             print(edge_tuple)
-
-#EOF

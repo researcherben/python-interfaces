@@ -51,6 +51,7 @@ def create_png(G):
     """ """
     nx.draw(G)  # default spring_layout
     plt.savefig("output.png")
+    return
 
 
 if __name__ == "__main__":
