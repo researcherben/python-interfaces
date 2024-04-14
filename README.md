@@ -24,6 +24,9 @@ For example,
 * implement logging capability 
 * wrap the snippet in a function implies testing the function
 * fuzz testing
+  * <https://www.fuzzingbook.org/html/Fuzzer.html>
+  * <https://fuzzing.readthedocs.io/en/latest/tutorial.html>
+  * <https://github.com/google/atheris> and <https://opensource.googleblog.com/2020/12/announcing-atheris-python-fuzzer.html>
 * behavioral tests
 * regression tests
 * performance characterization: scaling tests of memory, wall-clock time
