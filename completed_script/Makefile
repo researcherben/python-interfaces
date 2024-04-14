@@ -44,6 +44,16 @@ docker_mypy:
 
 
 
+
+# https://pypi.org/project/robotframework/
+robot:
+	robot test_robots/tests.robot
+
+
+
+
+
+
 # https://behave.readthedocs.io/en/latest/
 # https://github.com/behave/behave
 # "behave is a behavior-driven (BDD) test framework that is very similar to Cucumber, Cucumber-JVM, and SpecFlow."
