@@ -2,23 +2,32 @@ FILE_NAME=produce_output.py
 
 help:
 	@echo "make docker_shell"
-	@echo "make doctest"
-	@echo "        make docker_doctest"
+	@echo "make pydeps"
 	@echo "make mypy"
 	@echo "        make docker_mypy"
+	@echo "make unittest"
+	@echo "make pytest"
 	@echo "make pycallgraph"
 	@echo "        make docker_pycallgraph"
 	@echo "make prospector"
 	@echo "make flake8"
 	@echo "make black"
 	@echo "make pylint"
+	@echo "make doctest"
+	@echo "        make docker_doctest"
 	@echo "make mccabe"
+	@echo "make clean"
+
 
 
 docker_shell:
-	docker run -it -v `pwd`:/scratch --rm interface_demo /bin/bash
+	docker run -it -v `pwd`:/scratch --workdir /scratch --rm interface_demo /bin/bash
 
 
+
+
+pydeps:
+	pydeps --no-show $(FILE_NAME)
 
 
 
@@ -33,6 +42,8 @@ docker_mypy:
 
 
 
+
+
 # https://behave.readthedocs.io/en/latest/
 # https://github.com/behave/behave
 # "behave is a behavior-driven (BDD) test framework that is very similar to Cucumber, Cucumber-JVM, and SpecFlow."
@@ -42,21 +53,29 @@ docker_mypy:
 
 
 # https://automationpanda.com/2017/03/10/python-testing-101-unittest/
+unittest:
+	python3 -m unittest discover
 
 
 
 
 # https://automationpanda.com/2017/03/14/python-testing-101-pytest/
+pytest:
+	python3 -m pytest pytests/test_produce_output.py
+
 
 
 
 # https://pycallgraph.readthedocs.io/en/master/
 # creates call graph visualizations
 pycallgraph:
-	pycallgraph graphviz -- ./$(FILE_NAME)
+	pycallgraph graphviz -- ./$(FILE_NAME) 4
 
 docker_pycallgraph:
 	docker run -it -v `pwd`:/scratch --rm interface_demo pycallgraph graphviz -- /scratch/$(FILE_NAME)
+
+
+
 
 # http://prospector.landscape.io/en/master/
 # analyze Python code and output information about errors, 
@@ -100,11 +119,18 @@ black:
 	black validate_graph.py
 	black validate_json_schema.py
 
+
+
+
+
 # https://www.pylint.org/
 # http://pylint.pycqa.org/en/latest/
 # checks for errors in Python code, tries to enforce a coding standard and looks for code smells.
 pylint:
 	pylint $(FILE_NAME)
+
+
+
 
 # https://docs.python.org/3/library/doctest.html
 # searches for pieces of text that look like interactive Python sessions, and 
@@ -116,13 +142,18 @@ docker_doctest:
 	docker run -it -v `pwd`:/scratch --rm interface_demo make -f /scratch/Makefile doctest FILE_NAME=produce_output.py 
 
 
+
+
 # https://pypi.org/project/mccabe/
 # check McCabe complexity; see
 # https://en.wikipedia.org/wiki/Cyclomatic_complexity
 mccabe:
 	python3 -m mccabe $(FILE_NAME)
 
+
+
+
 clean:
-	rm -rf .mypy_cache __pycache__ logs *.json
+	rm -rf .mypy_cache __pycache__ logs *.json *.png *.svg
 
 #EOF

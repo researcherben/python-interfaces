@@ -14,6 +14,7 @@ this file is also intended as an exemplar for how to use
 """
 import random  # for graph construction; https://docs.python.org/3/library/random.html
 import logging  # https://docs.python.org/3/library/logging.html
+from logging.handlers import RotatingFileHandler
 
 # https://realpython.com/python-logging-source-code/
 import argparse  # https://docs.python.org/3.3/library/argparse.html
@@ -22,7 +23,7 @@ import argparse  # https://docs.python.org/3.3/library/argparse.html
 import os
 import json
 
-# import sys
+import sys
 # I had been using sys for command-line arguments as per
 #       https://realpython.com/python-command-line-arguments/
 #       but argparse is the better approach
@@ -44,30 +45,29 @@ if not os.path.exists("logs"):
     os.makedirs("logs")
 
 # https://gist.github.com/ibeex/3257877
-from logging.handlers import RotatingFileHandler
 
 # maxBytes=10000 = 10kB
 # maxBytes=100000 = 100kB
 # maxBytes=1000000 = 1MB
 # maxBytes=10000000 = 10MB
-log_size = 10000000
+LOG_SIZE = 10000000
 # maxBytes=100000000 = 100MB
 # https://gist.github.com/ibeex/3257877
 handler_debug = RotatingFileHandler(
     "logs/critical_and_error_and_warning_and_info_and_debug.log",
-    maxBytes=log_size,
+    maxBytes=LOG_SIZE,
     backupCount=2,
 )
 handler_debug.setLevel(logging.DEBUG)
 handler_info = RotatingFileHandler(
     "logs/critical_and_error_and_warning_and_info.log",
-    maxBytes=log_size,
+    maxBytes=LOG_SIZE,
     backupCount=2,
 )
 handler_info.setLevel(logging.INFO)
 handler_warning = RotatingFileHandler(
     "logs/critical_and_error_and_warning.log",
-    maxBytes=log_size,
+    maxBytes=LOG_SIZE,
     backupCount=2,
 )
 handler_warning.setLevel(logging.WARNING)
@@ -82,13 +82,15 @@ logging.basicConfig(
     # the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages
     # and will ignore DEBUG messages
     level=logging.DEBUG,
-    format="%(asctime)s|%(filename)-13s|%(levelname)-5s|%(lineno)-4d|%(funcName)-20s|%(message)s",  # ,
+    format="%(asctime)s|%(filename)-13s|%(levelname)-5s|%(lineno)-4d|%(funcName)-20s|%(message)s",
     # https://stackoverflow.com/questions/6290739/python-logging-use-milliseconds-in-time-format/7517430#7517430
     # datefmt="%m/%d/%Y %I:%M:%S %f %p", # https://strftime.org/
 )
 
 # https://docs.python.org/3/howto/logging.html
-# if the severity level is INFO, the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages and will ignore DEBUG messages
+# if the severity level is INFO,
+#   then the logger will handle only INFO, WARNING, ERROR, and CRITICAL messages
+#        and will ignore DEBUG messages
 # handler.setLevel(logging.INFO)
 # handler.setLevel(logging.DEBUG)
 
@@ -126,7 +128,7 @@ def create_random_graph(number_of_nodes: int) -> dict:
     {0: [], 1: [2], 2: [1, 3], 3: [2]}
     """
     logger.info("[trace: create_random_graph]")
-    the_graph = {}
+    this_graph = {}
 
     for node_id in range(number_of_nodes):
 
@@ -141,10 +143,8 @@ def create_random_graph(number_of_nodes: int) -> dict:
             edge_list.remove(node_id)
 
         # the data struture to store the graph is "for each node, what other nodes are connected?"
-        the_graph[node_id] = edge_list
-    return the_graph
-
-
+        this_graph[node_id] = edge_list
+    return this_graph
 
 
 # ********** end primary functions *****************
@@ -152,14 +152,14 @@ def create_random_graph(number_of_nodes: int) -> dict:
 # ********** begin helper functions *****************
 
 
-def next_edge_in_graph(the_graph: dict):
+def next_edge_in_graph(this_graph: dict):
     """generate every edge in the_graph
 
     generator of edges
     This is a helper function to access the primary data structure
 
     Args:
-        the_graph: a dictionary where each key is a non-negative integer and
+        this_graph: a dictionary where each key is a non-negative integer and
         the value is a list of integers corresponding to nearest-neighbor nodes
 
     Returns:
@@ -168,7 +168,7 @@ def next_edge_in_graph(the_graph: dict):
     >>> next_edge_in_graph({}) #doctest:+SKIP
     """
     logger.info("[trace: next_edge_in_graph]")
-    for left_node, list_of_nodes in the_graph.items():
+    for left_node, list_of_nodes in this_graph.items():
         for right_node in list_of_nodes:
             yield ((left_node, right_node))
 
@@ -189,7 +189,8 @@ if __name__ == "__main__":
     )
 
     # required positional argument
-    # it is possible to constrain the input to a range; see https://stackoverflow.com/a/25295717/1164295
+    # it is possible to constrain the input to a range;
+    #  see https://stackoverflow.com/a/25295717/1164295
     theparser.add_argument(
         "numNodes",
         metavar="nodes_in_graph",
@@ -214,7 +215,9 @@ if __name__ == "__main__":
         "--json",
         action="store_true",
         default=False,
-        help="create JSON output, with key as node ID and value a list of nearest neighbors. If not provided, prints edge tuples",
+        help="create JSON output, with key as node ID \
+        and value a list of nearest neighbors. \
+        If not provided, prints edge tuples",
     )
 
     # even though this script is under version control in a git repo,
@@ -233,8 +236,6 @@ if __name__ == "__main__":
         help="history of major versions of this script",
     )
 
-    # TODO: add arguments that expose the graph type: random, ring, grid, hexagonal, fully-connected
-
     # ********** end argparse configuration *****************
 
     args = theparser.parse_args()
@@ -243,11 +244,11 @@ if __name__ == "__main__":
 
     if args.version:
         print("version: 0.1")
-        exit()
+        sys.exit()
     if args.history:
         print("version history")
         print("0.1: exemplar")
-        exit()
+        sys.exit()
 
     random.seed(args.seed)
 
@@ -264,4 +265,4 @@ if __name__ == "__main__":
         for edge_tuple in next_edge_in_graph(the_graph):
             print(edge_tuple)
 
-#EOF
+# EOF

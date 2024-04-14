@@ -16,3 +16,48 @@ docker run -it -v `pwd`:/scratch --rm interface_demo python3 produce_output.py 4
 docker run -it -v `pwd`:/scratch --rm interface_demo python3 validate_json_schema.py /scratch/my_output.json 
     Successfully validated file against schema
 ```
+
+
+# doctest
+
+```bash
+make doctest
+    python3 -m doctest -v produce_output.py
+    3 items had no tests:
+        produce_output
+        produce_output.create_random_graph
+        produce_output.next_edge_in_graph
+    0 tests in 3 items.
+    0 passed and 0 failed.
+    Test passed.
+```
+
+# mypy
+
+```bash
+make mypy
+    mypy --check-untyped-defs produce_output.py
+    Success: no issues found in 1 source file
+```
+
+# black
+
+```bash
+make black
+    black produce_output.py
+    All done! ✨ 🍰 ✨
+    1 file left unchanged.
+```
+
+# mccabe
+
+```bash
+make mccabe
+python3 -m mccabe produce_output.py
+If 43 2
+108:0: 'create_random_graph' 3
+153:0: 'next_edge_in_graph' 3
+If 176 7
+```
+
+EOF
