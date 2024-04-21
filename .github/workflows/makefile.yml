@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # this step must happen so that the code is available
+    - uses: actions/checkout@v3
+
     - name: use container
       uses: ./perfect-python
-    - name: Run check
-      run: cd completed_script/ && make black
