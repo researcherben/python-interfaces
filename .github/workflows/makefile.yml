@@ -12,13 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
     - name: use container
-      uses: perfect-python
-
-    - name: python version
-      run: python3 --version
-
+      uses: ./perfect-python
     - name: Run check
       run: cd completed_script/ && make black
