@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: use container?
-      uses: actions/perfect-python
+    - name: use container
+      uses: actions/perfect-python@v4
 
     - name: python version
       run: python3 --version
