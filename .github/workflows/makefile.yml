@@ -18,5 +18,8 @@ jobs:
     - name: where am i
       run: pwd
 
-#    - name: use container
-#      uses: .
+    - name: what exists
+      run: ls -hal
+
+    - name: use container
+      uses: perfect-python/perfect-python
