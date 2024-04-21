@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: python version
+      uses: actions/perfect-python
       run: python3 --version
 
     - name: Run check

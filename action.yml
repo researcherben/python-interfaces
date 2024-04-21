@@ -1,0 +1,6 @@
+# source: https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action
+name: 'for testing python'
+description: 'bundle all the dependencies'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
