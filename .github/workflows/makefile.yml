@@ -25,4 +25,4 @@ jobs:
       timeout-minutes: 1
 
     - name: use container
-      uses: perfect-python/perfect-python@v4
+      uses: ./.github/actions/create_docker_image.yml
