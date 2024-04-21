@@ -37,6 +37,7 @@ For example,
 * specify version for python dependencies. Better: specify hash for Python dependencies. See <https://github.com/pypa/packaging.python.org/issues/564#issuecomment-428011603> and <https://lil.law.harvard.edu/blog/2019/05/20/improving-pip-compile-generate-hashes/>
 * cache the python dependencies offline (rather than relying on pypi over the network)
 * build python dependencies from source (rather than relying on wheels)
+* use github actions; <https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action>
 
 
 There are 4 ways to explore this project:
