@@ -25,4 +25,4 @@ jobs:
       timeout-minutes: 1
 
     - name: use container
-      uses: ./.github/actions/create_docker_image.yml
+      uses: ./.github/actions
