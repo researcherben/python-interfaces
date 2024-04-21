@@ -7,9 +7,10 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-my-project:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
     # this step must happen so that the code is available
@@ -17,9 +18,11 @@ jobs:
 
     - name: where am i
       run: pwd
+      timeout-minutes: 1
 
     - name: what exists
       run: ls -hal
+      timeout-minutes: 1
 
     - name: use container
       uses: perfect-python/perfect-python@v4
