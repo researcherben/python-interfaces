@@ -3,4 +3,4 @@ name: 'for testing python'
 description: 'bundle all the dependencies'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: '../../Dockerfile'
