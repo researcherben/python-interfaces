@@ -2,6 +2,7 @@ What would it take to get a simple Python script to be production quality?
 
 Given a trivial task (e.g., generate a random graph), implement all the best practices.
 
+Here's the "trivial task" -- 12 lines of Python 3. 
 ```python
 #!/usr/bin/env python3
 import sys  # command-line arguments
@@ -18,11 +19,11 @@ print(the_graph)
 ````
 
 For example, 
-* wrap the code snippet in a function and then having `main` call the function allows other developers to use that same capability elsewhere by importing the function. See `tutorial_on_how_to_evolve_from_research-grade_to_production/input_files/step01_produce_output.py`
+* wrap the code snippet in a function and then have `main` call the function allows other developers to use that same capability elsewhere by importing the function. See `tutorial_on_how_to_evolve_from_research-grade_to_production/input_files/step01_produce_output.py`
 * document the function with a comment block that enables `help`. See `tutorial_on_how_to_evolve_from_research-grade_to_production/input_files/step02_produce_output.py`
 * provide command-line help when calling the .py file
-* implement logging capability 
-* wrap the snippet in a function implies testing the function
+* implement logging capability
+* wrapping the snippet in a function implies testing the function
 * fuzz testing
   * <https://www.fuzzingbook.org/html/Fuzzer.html>
   * <https://fuzzing.readthedocs.io/en/latest/tutorial.html>
@@ -32,6 +33,11 @@ For example,
 * performance characterization: scaling tests of memory, wall-clock time
 * does the code enact the required capability? 
 * create sphinx documentation
+* containerize dependencies
+* specify version for python dependencies. Better: specify hash for Python dependencies. See <https://github.com/pypa/packaging.python.org/issues/564#issuecomment-428011603> and <https://lil.law.harvard.edu/blog/2019/05/20/improving-pip-compile-generate-hashes/>
+* cache the python dependencies offline (rather than relying on pypi over the network)
+* build python dependencies from source (rather than relying on wheels)
+
 
 There are 4 ways to explore this project:
 * look in the folder `completed_script` for the result.
